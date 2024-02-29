@@ -1,0 +1,26 @@
+{
+    "name": "shigabutdinoff/lararoles",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Shigabutdinoff\\Lararoles\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Shigabutdinov Bulat",
+            "email": "shigabutdinovbr@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "shigabutdinoff/json-relation-builder": "^1.0.0"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/shigabutdinoff/JsonRelationBuilder"
+        }
+    ]
+}
