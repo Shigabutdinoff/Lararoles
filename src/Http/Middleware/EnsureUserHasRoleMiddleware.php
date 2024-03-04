@@ -16,9 +16,7 @@ class EnsureUserHasRoleMiddleware
      */
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
-        $hasRoles = RoleModel::getModel()
-            ->with('user')
-            ->whereRelation('user', 'id', $request->user()->id)
+        $hasRoles = RoleModel::find($request->user()->id)
             ->whereJsonContains('roles', $roles)
             ->exists();
 
