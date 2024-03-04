@@ -2,6 +2,7 @@
 
 namespace Shigabutdinoff\Lararoles\Http\Middleware;
 
+use App\Models\User;
 use Shigabutdinoff\JsonRelation\JsonRelation;
 use Closure;
 use Illuminate\Http\Request;
@@ -19,11 +20,11 @@ class EnsureUserHasRoleMiddleware
     {
         $hasRoles = JsonRelation::addToModel($request->user()->getModel())
             ->whereId($request->user()->id)
-            ->hasOneMacro(RoleModel::class, 'roles')
-            ->whereRelationJsonContains('roles', 'roles', $roles, 'or')
-            ;
+            ->hasOneMacro(RoleModel::class, 'role')
+            ->whereRelationJsonContains('role', 'roles', $roles, 'or')
+            ->exists();
 
-        if (! $hasRoles->exists()) {
+        if (! $hasRoles) {
             return response()->json([
                 'ok' => false,
                 'result' => false,
