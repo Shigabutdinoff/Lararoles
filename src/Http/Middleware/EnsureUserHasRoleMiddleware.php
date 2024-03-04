@@ -2,9 +2,9 @@
 
 namespace Shigabutdinoff\Lararoles\Http\Middleware;
 
-use Shigabutdinoff\JsonRelation\JsonRelation;
 use Closure;
 use Illuminate\Http\Request;
+use Shigabutdinoff\JsonRelation\JsonRelation;
 use Shigabutdinoff\Lararoles\Models\RoleModel;
 use Symfony\Component\HttpFoundation\Response;
 
