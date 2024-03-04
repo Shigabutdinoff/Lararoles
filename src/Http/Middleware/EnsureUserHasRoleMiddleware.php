@@ -4,7 +4,6 @@ namespace Shigabutdinoff\Lararoles\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Shigabutdinoff\JsonRelation\JsonRelation;
 use Shigabutdinoff\Lararoles\Models\RoleModel;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,10 +16,10 @@ class EnsureUserHasRoleMiddleware
      */
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
-        $hasRoles = JsonRelation::addToModel($request->user()->getModel())
-            ->whereId($request->user()->id)
-            ->hasOneMacro(RoleModel::class, 'role')
-            ->whereRelationJsonContains('role', 'roles', $roles, 'or')
+        $hasRoles = RoleModel::getModel()
+            ->with('user')
+            ->whereRelation('user', 'id', $request->user()->id)
+            ->whereJsonContains('roles', $roles)
             ->exists();
 
         if (! $hasRoles) {
