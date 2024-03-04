@@ -2,12 +2,14 @@
 
 namespace Shigabutdinoff\Lararoles\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Shigabutdinoff\JsonRelation\Traits\JsonRelationTrait;
 
 class RoleModel extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, JsonRelationTrait;
 
     protected $table = 'roles';
 
@@ -18,4 +20,9 @@ class RoleModel extends Model
     protected $casts = [
         'roles' => 'array',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }
