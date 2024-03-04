@@ -15,12 +15,13 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "shigabutdinoff/json-relation-builder": "^1.0.0"
+        "illuminate/database": "^10.0|^11.0",
+        "shigabutdinoff/json-relation": "^1.0.0"
     },
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/shigabutdinoff/JsonRelationBuilder"
+            "url": "https://github.com/Shigabutdinoff/JsonRelation"
         }
     ]
 }
