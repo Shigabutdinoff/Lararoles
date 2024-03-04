@@ -11,6 +11,8 @@ class RoleModel extends Model
 {
     use SoftDeletes, JsonRelationTrait;
 
+    protected $primaryKey = 'user_id';
+
     protected $table = 'roles';
 
     protected $fillable = [
