@@ -2,7 +2,6 @@
 
 namespace Shigabutdinoff\Lararoles\Http\Middleware;
 
-use App\Models\User;
 use Shigabutdinoff\JsonRelation\JsonRelation;
 use Closure;
 use Illuminate\Http\Request;
