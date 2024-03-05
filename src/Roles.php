@@ -9,31 +9,25 @@ use Shigabutdinoff\Lararoles\Models\RoleModel;
 
 class Roles extends Controller
 {
-    public string $table;
-
-    protected $user;
-
-    public function __construct()
+    protected static function table()
     {
-        $this->table = RoleModel::getModel()->getTable();
-        $this->user = JsonRelation::addToModel(User::class)
-            ->hasOneMacro(RoleModel::class)
-            ->with($this->table);
+        return RoleModel::getModel()->getTable();
     }
 
     /**
      * Get the user Model use JsonRelation.
-     * @return mixed
      */
-    public function user()
+    public static function user()
     {
-        return $this->user->clone();
+        return JsonRelation::addToModel(User::class)
+            ->hasOneMacro(RoleModel::class)
+            ->with(Roles::table());
     }
 
-    public function update($id, $roles)
+    public static function update($id, $roles)
     {
-        $result = $this->user()->find((array)$id)->map(function ($model) use ($roles) {
-            $relation = $model->getRelation($this->table);
+        $result = Roles::user()->find((array)$id)->map(function ($model) use ($roles) {
+            $relation = $model->getRelation(Roles::table());
             $updated = false;
             if (! is_null($relation)) {
                 $updated = (bool) $relation->update(['roles' => ['guest', ... (array)$roles]]);
@@ -53,10 +47,10 @@ class Roles extends Controller
         ]);
     }
 
-    public function set($id, $roles)
+    public static function set($id, $roles)
     {
-        $result = $this->user()->find((array)$id)->map(function ($model) use ($roles) {
-            $relation = $model->getRelation($this->table);
+        $result = Roles::user()->find((array)$id)->map(function ($model) use ($roles) {
+            $relation = $model->getRelation(Roles::table());
             $pushed = false;
             if (! is_null($relation)) {
                 $setted = (bool) $relation->update(['roles' => array_merge($relation->roles, (array)$roles)]);
@@ -76,10 +70,10 @@ class Roles extends Controller
         ]);
     }
 
-    public function unset($id, $roles)
+    public static function unset($id, $roles)
     {
-        $result = $this->user()->find((array)$id)->map(function ($model) use ($roles) {
-            $relation = $model->getRelation($this->table);
+        $result = Roles::user()->find((array)$id)->map(function ($model) use ($roles) {
+            $relation = $model->getRelation(Roles::table());
             $unsetted = false;
             if (! is_null($relation)) {
                 $unsetted = (bool) $relation->update(['roles' => ['guest', ... array_diff($relation->roles, (array)$roles)]]);
