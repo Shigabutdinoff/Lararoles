@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Shigabutdinoff\JsonRelation\Traits\JsonRelationTrait;
+use Shigabutdinoff\Lararoles\Casts\JsonUniqueCast;
 
 class RoleModel extends Model
 {
@@ -20,7 +21,7 @@ class RoleModel extends Model
     ];
 
     protected $casts = [
-        'roles' => 'array',
+        'roles' => JsonUniqueCast::class,
     ];
 
     public function user()
