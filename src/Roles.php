@@ -20,8 +20,9 @@ class Roles extends Controller
     public static function user()
     {
         return JsonRelation::addToModel(User::class)
-            ->hasOneMacro(RoleModel::class)
-            ->with(Roles::table());
+//            ->whereNotNull('id')
+//            ->hasOneMacro(RoleModel::class)
+            /*->with(Roles::table())*/;
     }
 
     public static function update($id, $roles)
